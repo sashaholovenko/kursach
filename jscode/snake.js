@@ -12,9 +12,14 @@ const box = 32;
 
 let score = 0;
 
+const leftBorder = 1;
+const rightBorder  = 17;
+const downBorder = 15;
+const upBorder = 3;
+
 let food = {
-  x: Math.floor((Math.random() * 17 + 1)) * box,
-  y: Math.floor((Math.random() * 15 + 3)) * box,
+  x: Math.floor((Math.random() * rightBorder + leftBorder)) * box,
+  y: Math.floor((Math.random() * downBorder + upBorder)) * box,
 };
 
 const snake = [];
@@ -27,21 +32,25 @@ document.addEventListener('keydown', direction);
 
 let dir;
 
-const game = setInterval(drawGame, 150);
+const snakeSpeed = 150;
 
-const LEFT_ARROW_BUTTON_CODE = 37;
-const UP_ARROW_BUTTON_CODE = 38;
-const RIGHT_ARROW_BUTTON_CODE = 39;
-const DONW_ARROW_BUTTON_CODE = 40;
+const game = setInterval(drawGame, snakeSpeed);
+
+const key = {
+  left: 37,
+  up: 38,
+  right: 39,
+  down: 40
+};
 
 function direction(event) {
-  if (event.keyCode === LEFT_ARROW_BUTTON_CODE && dir !== 'right')
+  if (event.keyCode === key.left && dir !== 'right')
     dir = 'left';
-  else if (event.keyCode === UP_ARROW_BUTTON_CODE && dir !== 'down')
+  else if (event.keyCode === key.up && dir !== 'down')
     dir = 'up';
-  else if (event.keyCode === RIGHT_ARROW_BUTTON_CODE & dir !== 'left')
+  else if (event.keyCode === key.right & dir !== 'left')
     dir = 'right';
-  else if (event.keyCode === DONW_ARROW_BUTTON_CODE && dir !== 'up')
+  else if (event.keyCode === key.down && dir !== 'up')
     dir = 'down';
 }
 
@@ -72,15 +81,16 @@ function drawGame() {
   if (snakeX === food.x && snakeY === food.y) {
     score++;
     food = {
-      x: Math.floor((Math.random() * 17 + 1)) * box,
-      y: Math.floor((Math.random() * 15 + 3)) * box,
+      x: Math.floor((Math.random() * rightBorder + leftBorder)) * box,
+      y: Math.floor((Math.random() * downBorder + upBorder)) * box,
     };
   } else {
     snake.pop();
   }
 
-  if (snakeX < box || snakeX > box * 17 ||
-    snakeY < 3 * box || snakeY > box * 17) {
+
+  if (snakeX < box || snakeX > box * rightBorder ||
+    snakeY < upBorder * box || snakeY > box * rightBorder) {
     alert('YOU DIED');
     clearInterval(game);
 
