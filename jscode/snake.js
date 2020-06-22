@@ -32,7 +32,19 @@ document.addEventListener('keydown', direction);
 
 let dir;
 
-const snakeSpeed = 150;
+let snakeSpeed = prompt('Enter snake speed: Slow, Medium, Fast');
+
+
+if (snakeSpeed === 'Fast' || snakeSpeed === 'fast') {
+  snakeSpeed = 100;
+} else if (snakeSpeed === 'Medium' || snakeSpeed === 'medium') {
+  snakeSpeed = 150;
+} else if (snakeSpeed === 'Slow' || snakeSpeed === 'slow') {
+  snakeSpeed = 200;
+} else {
+  alert('Use only words like in example, no numbers');
+}
+
 
 const game = setInterval(drawGame, snakeSpeed);
 
